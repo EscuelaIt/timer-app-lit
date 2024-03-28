@@ -1,0 +1,30 @@
+html {
+  --primary-color: #661b8c;
+  --primary-dark-color: #381073;
+  --secondary-color: #d8e6a3;
+  --secondary-light-color: #f6f9e8;
+  --terciary-color: #3747a9;
+
+  --foreground-color: #303030;
+  --primary-foreground-color: #fff;
+
+
+  --dile-nav-background-color: var(--primary-color);
+  --dile-nav-padding-x: 1rem;
+
+  --dile-hamburger-padding-y: 0;
+  --dile-hamburger-padding-x: 0;
+  --dile-hamburger-color: var(--primary-foreground-color);
+
+  --dile-app-drawer-background-color: var(--secondary-color);
+  --dile-app-drawer-modal-background-color: rgba(20, 20, 20, 0.4);
+
+}
+
+
+@media(min-width: 500px) {
+  html {
+    --dile-nav-padding-x: 1.6rem;
+    --dile-nav-padding-y: 1.3rem;
+  }   
+}
