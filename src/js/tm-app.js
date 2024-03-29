@@ -46,7 +46,7 @@ export class TmApp extends FeedbackMixin(LitElement) {
   render() {
     return html`
       <dile-nav>
-        <span slot="title">Hi from Polydile!!</span>
+        <span slot="title">Hi from EscuelaIT!!</span>
         <dile-menu-hamburger slot="menu" direction="left" hamburgerAlwaysVisible>
           <div class="menu-content" slot="menu">
             <h2>Menu</h2>
