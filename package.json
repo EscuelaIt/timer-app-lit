@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@dile/ui": "^2.0.1",
+    "axios": "^1.6.8",
     "lit": "^3.1.2",
     "vite": "^5.2.6"
   }
