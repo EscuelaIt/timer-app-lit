@@ -43,7 +43,11 @@ export class TmFeedback extends LitElement {
   }
 
   showToast(text, status) {
-    this.toast.open(text, status)
+    if(this.toast) {
+      this.toast.open(text, status);
+    } else {
+      setTimeout( () => this.showToast(text, status), 100);
+    }
   }
 
   negativeFeedback(e) {
