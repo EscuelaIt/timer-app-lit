@@ -83,16 +83,13 @@ export class TmAjax extends LitElement {
         case 500:
           message = 'Error en el servidor, intenta más tarde';
           break;
+        case 401: 
         case 400:
           message = error.response.data.message;
           errors = error.response.data.errors;
           break;
         case 403:
           message = 'Operación no autorizada';
-          break;
-        case 401: 
-          message = error.response.data.message;
-          errors = error.response.data.errors;
           break;
         default: 
         message = 'Error en la solicitud';
