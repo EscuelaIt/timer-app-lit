@@ -39,8 +39,7 @@ export class TmAjax extends LitElement {
         request = axios.patch(this.url, this.data);
         break;
       default:
-        this.sendError('Método no soportado');
-        return;
+        throw new Error('Has escrito un método no soportado al usar el componente tm-ajax');
     }
     request
       .then( response => {
@@ -63,17 +62,21 @@ export class TmAjax extends LitElement {
       detail: data
     }));
   }
-  sendError(data) {
+  sendError(message, errors) {
     this.dispatchEvent(new CustomEvent('ajax-error', {
       bubbles: true,
       composed: true,
-      detail: data
+      detail: {
+        message,
+        errors,
+      }
     }));
   }
 
   describeError(error) {
     let message = '';
-    if(error.reponse) {
+    let errors = {};
+    if(error.response) {
       const status = error.response.status;
       console.log('error recibido por axios', error);
       switch(status) {
@@ -81,13 +84,15 @@ export class TmAjax extends LitElement {
           message = 'Error en el servidor, intenta más tarde';
           break;
         case 400:
-          message = 'Error de validación';
+          message = error.response.data.message;
+          errors = error.response.data.errors;
           break;
         case 403:
           message = 'Operación no autorizada';
           break;
         case 401: 
           message = error.response.data.message;
+          errors = error.response.data.errors;
           break;
         default: 
         message = 'Error en la solicitud';
@@ -95,7 +100,7 @@ export class TmAjax extends LitElement {
     } else {
       message = error;
     }
-    this.sendError(message);
+    this.sendError(message, errors);
   }
 }
 customElements.define('tm-ajax', TmAjax);

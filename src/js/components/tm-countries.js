@@ -59,7 +59,7 @@ export class TmCountries extends FeedbackMixin(LitElement) {
 
   doAjaxError(e) {
     console.log('doajaxerror', e.detail);
-    this.negativeFeedback(e.detail);
+    this.negativeFeedback(e.detail.message);
   }
 }
 customElements.define('tm-countries', TmCountries);
