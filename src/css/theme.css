@@ -9,12 +9,12 @@ html {
   --primary-foreground-color: #fff;
 
 
-  --dile-nav-background-color: var(--primary-color);
+  --dile-primary-color: var(--primary-color);
   --dile-nav-padding-x: 1rem;
 
   --dile-hamburger-padding-y: 0;
   --dile-hamburger-padding-x: 0;
-  --dile-hamburger-color: var(--primary-foreground-color);
+  --dile-foreground-color: var(--primary-foreground-color);
 
   --dile-app-drawer-background-color: var(--secondary-color);
   --dile-app-drawer-modal-background-color: rgba(20, 20, 20, 0.4);

@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dile/ui": "^2.0.1",
+    "@dile/icons": "^2.0.2",
+    "@dile/ui": "^2.0.2",
     "axios": "^1.6.8",
     "lit": "^3.1.2",
     "vite": "^5.2.6"

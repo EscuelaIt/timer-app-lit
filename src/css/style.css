@@ -3,3 +3,7 @@
 body {
   font-family: roboto, arial, verdana, sans-serif;
 }
+.centrar {
+  display: flex;
+  align-items: center;
+}

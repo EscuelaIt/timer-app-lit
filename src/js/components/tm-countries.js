@@ -1,11 +1,13 @@
 import { LitElement, html, css } from 'lit';
 import { FeedbackMixin } from '../mixins/feedback-mixin';
+import { infoIcon } from '@dile/icons';
 
 export class TmCountries extends FeedbackMixin(LitElement) {
   static styles = [
     css`
       :host {
         display: block;
+        --dile-icon-color: var(--primary-color);
       }
     `
   ];
@@ -45,7 +47,7 @@ export class TmCountries extends FeedbackMixin(LitElement) {
 
   get countriesTemplate() {
     return html`
-      <p>Mostramos el listado de ${this.countries.length} países</p>
+      <p><dile-icon .icon="${infoIcon}"></dile-icon> Mostramos el listado de ${this.countries.length} países</p>
       <ul>
         ${this.countries.map( country => html`<li><b>${country.name}</b> - ${country.continent}</li>`)}
       </ul>  

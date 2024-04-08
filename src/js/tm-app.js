@@ -6,7 +6,8 @@ import './components/utils/tm-loading';
 import './components/user/tm-user-register';
 import { FeedbackMixin } from './mixins/feedback-mixin';
 import './components/tm-countries';
-
+import { icons } from './icons/icons';
+import '@dile/ui/components/icon/icon';
 
 export class TmApp extends FeedbackMixin(LitElement) {
   static styles = [
@@ -32,6 +33,16 @@ export class TmApp extends FeedbackMixin(LitElement) {
       main {
         padding: 1rem;
       }
+      .nav-heading {
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-heading dile-icon {
+        margin-right: 0.4rem;
+        --dile-icon-color: #3f9;
+        --dile-icon-size: 32px;
+      }
 
       @media(min-width: 500px) {
         main {
@@ -48,7 +59,10 @@ export class TmApp extends FeedbackMixin(LitElement) {
   render() {
     return html`
       <dile-nav>
-        <span slot="title">Hi from EscuelaIT!!</span>
+        <span slot="title" class="nav-heading">
+        <dile-icon .icon="${icons.token}"></dile-icon>
+          Hi from EscuelaIT!!
+        </span>
         <dile-menu-hamburger slot="menu" direction="left" hamburgerAlwaysVisible>
           <div class="menu-content" slot="menu">
             <h2>Menu</h2>
