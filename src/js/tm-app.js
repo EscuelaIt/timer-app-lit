@@ -2,9 +2,11 @@ import { LitElement, html, css } from 'lit';
 import '@dile/ui/components/nav/nav';
 import '@dile/ui/components/menu-hamburger/menu-hamburger';
 import './components/utils/tm-feedback';
+import './components/utils/tm-loading';
 import './components/user/tm-user-register';
 import { FeedbackMixin } from './mixins/feedback-mixin';
 import './components/tm-countries';
+
 
 export class TmApp extends FeedbackMixin(LitElement) {
   static styles = [
@@ -69,12 +71,16 @@ export class TmApp extends FeedbackMixin(LitElement) {
 
 
       <tm-feedback></tm-feedback>
+      <tm-loading></tm-loading>
+
     `;
   }
 
   success() {
     this.positiveFeedback('todoo muy bien');
   }
+
+  
   
 }
 customElements.define('tm-app', TmApp);

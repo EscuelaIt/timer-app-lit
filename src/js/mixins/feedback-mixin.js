@@ -16,5 +16,18 @@ export const FeedbackMixin = (Superclass) => class extends Superclass {
     }));
   }
 
+  startLoading() {
+    console.log('inicio de carga');
+    this.dispatchEvent(new CustomEvent('start-loading-feedback', { 
+      bubbles: true,
+      composed: true,
+    }));
+  }
 
+  stopLoading() {
+    this.dispatchEvent(new CustomEvent('stop-loading-feedback', { 
+      bubbles: true,
+      composed: true,
+    }));
+  }
 }

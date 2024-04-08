@@ -23,6 +23,7 @@ export class TmCountries extends FeedbackMixin(LitElement) {
 
   firstUpdated() {
     this.ajaxget = this.shadowRoot.getElementById('ajaxget');
+    this.startLoading();
     this.ajaxget.generateRequest();
   }
 
@@ -52,12 +53,14 @@ export class TmCountries extends FeedbackMixin(LitElement) {
   }
 
   doAjaxSuccess(e) {
+    this.stopLoading();
     console.log(e.detail);
     this.positiveFeedback(e.detail.message);
     this.countries = e.detail.data;
   }
 
   doAjaxError(e) {
+    this.stopLoading();
     console.log('doajaxerror', e.detail);
     this.negativeFeedback(e.detail.message);
   }
