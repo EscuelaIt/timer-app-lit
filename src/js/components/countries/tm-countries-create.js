@@ -1,18 +1,13 @@
 import { LitElement, html, css } from 'lit';
 import { FeedbackMixin } from '../../mixins/feedback-mixin';
+import '@dile/ui/components/input/input.js';
+import '@dile/ui/components/select/select.js';
 
 export class TmCountriesCreate extends FeedbackMixin(LitElement) {
   static styles = [
     css`
       :host {
         display: block;
-      }
-      label {
-        display: block;
-      }
-      .errormessage {
-        font-size: 0.9rem;
-        color: red;
       }
     `
   ];
@@ -23,25 +18,15 @@ export class TmCountriesCreate extends FeedbackMixin(LitElement) {
 
   render() {
     return html`
-      <p>
-        <label for="name">Nombre:</label>
-        <input name="name" id="name">
-        <span id="error_name" class="errormessage"></span>
-      </p>
-      <p>
-        <label for="slug">Slug:</label>
-        <input name="slug" id="slug">
-        <span id="error_slug" class="errormessage"></span>
-      </p>
-      <p>
-        <label for="continent">Continente:</label>
-        <select name="continent" id="continent">
+      <dile-input label="Nombre" name="name" id="name" hideErrorOnInput></dile-input>
+      <dile-input label="Slug" name="slug" id="slug" hideErrorOnInput></dile-input>
+      <dile-select name="continent" id="continent" label="Continente" hideErrorOnInput>
+        <select slot="select">
           <option value="">Selecciona...</option>
           <option value="Europe">Europa</option>
           <option value="Asia">Asia</option>
         </select>
-        <span id="error_continent" class="errormessage"></span>
-      </p>
+      </dile-select>
       <dile-button @click=${this.create}>Crear</dile-button>
       <tm-ajax
         id="ajaxpost"
@@ -68,7 +53,6 @@ export class TmCountriesCreate extends FeedbackMixin(LitElement) {
     console.log(data);
     this.ajaxpost.data = data;
     this.ajaxpost.generateRequest();
-    this.clearErrors();
 
     //this.updateComplete.then( () => this.ajaxpost.generateRequest() ) 
   }
@@ -87,13 +71,12 @@ export class TmCountriesCreate extends FeedbackMixin(LitElement) {
 
   showErrors(errors) {
     for(let name in errors) {
-      this.shadowRoot.getElementById('error_' + name).innerText = errors[name][0];
+      let elem = this.shadowRoot.getElementById(name);
+      elem.message = errors[name][0];
+      elem.errored = true;
     } 
   }
 
-  clearErrors() {
-    this.shadowRoot.querySelectorAll('.errormessage').forEach(item => item.innerText = '');
-  }
 
 }
 customElements.define('tm-countries-create', TmCountriesCreate);

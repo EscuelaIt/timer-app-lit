@@ -78,8 +78,6 @@ export class TmApp extends FeedbackMixin(LitElement) {
         <p>
           lorem ipsum... 
         </p>
-        <button @click=${this.success}>mostrar todo bien</button>
-        <tm-user-register></tm-user-register>
 
         <tm-countries></tm-countries>
       </main>
