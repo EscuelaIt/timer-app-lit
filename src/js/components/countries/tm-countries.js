@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
-import { FeedbackMixin } from '../mixins/feedback-mixin';
+import { FeedbackMixin } from '../../mixins/feedback-mixin';
 import { infoIcon } from '@dile/icons';
+import './tm-countries-create';
 
 export class TmCountries extends FeedbackMixin(LitElement) {
   static styles = [
@@ -31,6 +32,11 @@ export class TmCountries extends FeedbackMixin(LitElement) {
 
   render() {
     return html`
+
+      <tm-countries-create
+        @ajax-success="${this.refresh}"
+      ></tm-countries-create>
+
       <tm-ajax
         id="ajaxget"
         url="https://timer.escuelait.com/api/countries"
@@ -42,6 +48,8 @@ export class TmCountries extends FeedbackMixin(LitElement) {
         ? html`<p>El array está vacío</p>`
         : this.countriesTemplate
       }
+
+      
     `;
   }
 
@@ -57,7 +65,7 @@ export class TmCountries extends FeedbackMixin(LitElement) {
   doAjaxSuccess(e) {
     this.stopLoading();
     console.log(e.detail);
-    this.positiveFeedback(e.detail.message);
+    //this.positiveFeedback(e.detail.message);
     this.countries = e.detail.data;
   }
 
@@ -65,6 +73,11 @@ export class TmCountries extends FeedbackMixin(LitElement) {
     this.stopLoading();
     console.log('doajaxerror', e.detail);
     this.negativeFeedback(e.detail.message);
+  }
+
+  refresh() {
+    this.startLoading();
+    this.ajaxget.generateRequest();
   }
 }
 customElements.define('tm-countries', TmCountries);

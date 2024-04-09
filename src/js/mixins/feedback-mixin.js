@@ -8,7 +8,7 @@ export const FeedbackMixin = (Superclass) => class extends Superclass {
   }
 
   negativeFeedback(msg) {
-    console.log('mixin negative', msg);
+    //console.log('mixin negative', msg);
     this.dispatchEvent(new CustomEvent('negative-feedback', { 
       bubbles: true,
       composed: true,
@@ -17,7 +17,7 @@ export const FeedbackMixin = (Superclass) => class extends Superclass {
   }
 
   startLoading() {
-    console.log('inicio de carga');
+    //console.log('inicio de carga');
     this.dispatchEvent(new CustomEvent('start-loading-feedback', { 
       bubbles: true,
       composed: true,

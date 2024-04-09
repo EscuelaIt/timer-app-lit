@@ -42,7 +42,7 @@ export class TmLoading extends LitElement {
   }
 
   startLoadingFeedback() {
-    console.log('inicio de carga');
+    //console.log('inicio de carga');
     this.active = true;
   }
 

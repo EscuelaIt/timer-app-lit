@@ -78,7 +78,7 @@ export class TmAjax extends LitElement {
     let errors = {};
     if(error.response) {
       const status = error.response.status;
-      console.log('error recibido por axios', error);
+      //console.log('error recibido por axios', error);
       switch(status) {
         case 500:
           message = 'Error en el servidor, intenta más tarde';

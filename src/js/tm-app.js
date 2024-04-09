@@ -1,11 +1,12 @@
 import { LitElement, html, css } from 'lit';
 import '@dile/ui/components/nav/nav';
+import '@dile/ui/components/button/button';
 import '@dile/ui/components/menu-hamburger/menu-hamburger';
 import './components/utils/tm-feedback';
 import './components/utils/tm-loading';
 import './components/user/tm-user-register';
 import { FeedbackMixin } from './mixins/feedback-mixin';
-import './components/tm-countries';
+import './components/countries/tm-countries';
 import { icons } from './icons/icons';
 import '@dile/ui/components/icon/icon';
 
