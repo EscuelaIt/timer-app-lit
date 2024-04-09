@@ -2,8 +2,10 @@ import { LitElement, html, css } from 'lit';
 import { FeedbackMixin } from '../../mixins/feedback-mixin';
 import '@dile/ui/components/input/input.js';
 import '@dile/ui/components/select/select.js';
+import { DileForm } from '@dile/ui/mixins/form'
 
-export class TmCountriesCreate extends FeedbackMixin(LitElement) {
+
+export class TmCountriesCreate extends DileForm(FeedbackMixin(LitElement)) {
   static styles = [
     css`
       :host {
@@ -45,11 +47,7 @@ export class TmCountriesCreate extends FeedbackMixin(LitElement) {
 
   create() {
     this.startLoading();
-    const data = {
-      name: this.accessElementValue('name'),
-      slug: this.accessElementValue('slug'),
-      continent: this.accessElementValue('continent')
-    }
+    const data = this.getData();
     console.log(data);
     this.ajaxpost.data = data;
     this.ajaxpost.generateRequest();
@@ -68,15 +66,5 @@ export class TmCountriesCreate extends FeedbackMixin(LitElement) {
     this.stopLoading();
     console.log('ajaxpostSuccess', e.detail);
   }
-
-  showErrors(errors) {
-    for(let name in errors) {
-      let elem = this.shadowRoot.getElementById(name);
-      elem.message = errors[name][0];
-      elem.errored = true;
-    } 
-  }
-
-
 }
 customElements.define('tm-countries-create', TmCountriesCreate);
