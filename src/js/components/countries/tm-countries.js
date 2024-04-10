@@ -2,6 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { FeedbackMixin } from '../../mixins/feedback-mixin';
 import { infoIcon } from '@dile/icons';
 import './tm-countries-create';
+import './tm-countries-update';
 
 export class TmCountries extends FeedbackMixin(LitElement) {
   static styles = [
@@ -34,8 +35,16 @@ export class TmCountries extends FeedbackMixin(LitElement) {
     return html`
 
       <tm-countries-create
-        @ajax-success="${this.refresh}"
+        @save-success="${this.refresh}"
       ></tm-countries-create>
+
+      <hr>
+
+      <tm-countries-update
+        @save-success="${this.refresh}"
+        relatedId="10"
+      ></tm-countries-update>
+
 
       <tm-ajax
         id="ajaxget"

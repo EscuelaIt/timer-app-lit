@@ -2,6 +2,7 @@ import '../css/style.css';
 import './tm-app';
 import './components/tm-time-counter';
 import './components/utils/tm-ajax';
+import './components/utils/tm-ajax-form';
 import './components/interface/tm-icon';
 
 import Axios from 'axios';
