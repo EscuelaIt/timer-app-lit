@@ -9,6 +9,12 @@ import { FeedbackMixin } from './mixins/feedback-mixin';
 import './components/countries/tm-countries';
 import { icons } from './icons/icons';
 import '@dile/ui/components/icon/icon';
+import { Router } from '@lit-labs/router';
+import { ifDefined } from 'lit/directives/if-defined.js';
+
+import './components/pages/tm-page-home';
+import './components/pages/tm-page-contact';
+// import './components/countries/tm-country-detail';
 
 export class TmApp extends FeedbackMixin(LitElement) {
   static styles = [
@@ -29,7 +35,7 @@ export class TmApp extends FeedbackMixin(LitElement) {
       }
       .menu-content h2 {
         color: var(--foreground-color);
-        margin: 1.5rem 0;
+        margin: 2rem 0 0.5rem 0;
       }
       main {
         padding: 1rem;
@@ -51,11 +57,22 @@ export class TmApp extends FeedbackMixin(LitElement) {
         }   
         .menu-content h2 {
           color: var(--foreground-color);
-          margin: 2rem 0;
+          margin: 2rem 0 1rem;
         }
       }
     `
   ];
+
+  static get properties() {
+    return {
+      _routes: { type: Object },
+    };
+  }
+
+  constructor() {
+    super();
+    this.createRoutes();
+  }
 
   render() {
     return html`
@@ -67,30 +84,37 @@ export class TmApp extends FeedbackMixin(LitElement) {
         <dile-menu-hamburger slot="menu" direction="left" hamburgerAlwaysVisible>
           <div class="menu-content" slot="menu">
             <h2>Menu</h2>
-            <p><a href="#">Link 1</a></p>
-            <p><a href="#">Another link</a></p>
-            <p><a href="#">More information</a></p>
-            <p><a href="#">Contact us</a></p>
+            <p><a href="/">Home</a></p>
+            <p><a href="/countries">Países</a></p>
+            <p><a href="/contacto">Contacto</a></p>
           </div>
         </dile-menu-hamburger>
       </dile-nav>
       <main>
-        <p>
-          lorem ipsum... 
-        </p>
-
-        <tm-countries></tm-countries>
+        ${this._routes.outlet()}
       </main>
-
-
       <tm-feedback></tm-feedback>
       <tm-loading></tm-loading>
-
     `;
   }
 
-  success() {
-    this.positiveFeedback('todoo muy bien');
+  createRoutes() {
+    this._routes = new Router(this, [
+      {path: '/', render: () => {
+          console.log('vista home');
+          return html`<tm-page-home></tm-page-home>`
+        }
+      },
+      {path: '/contacto', render: () => html`<tm-page-contact></tm-page-contact>`},
+      {path: '/countries', render: () => html`<tm-countries></tm-countries>`},
+      {
+        path: '/countries/:id',
+        render: ({id}) => html`<tm-country-detail countryId=${ifDefined(id)}></tm-country-detail>`,
+        enter: async () => {
+          await import('./components/countries/tm-country-detail');
+        },
+      }
+    ]);
   }
 
   

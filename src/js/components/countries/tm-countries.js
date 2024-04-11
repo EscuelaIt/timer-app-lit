@@ -40,12 +40,6 @@ export class TmCountries extends FeedbackMixin(LitElement) {
 
       <hr>
 
-      <tm-countries-update
-        @save-success="${this.refresh}"
-        relatedId="10"
-      ></tm-countries-update>
-
-
       <tm-ajax
         id="ajaxget"
         url="https://timer.escuelait.com/api/countries"
@@ -66,7 +60,9 @@ export class TmCountries extends FeedbackMixin(LitElement) {
     return html`
       <p><dile-icon .icon="${infoIcon}"></dile-icon> Mostramos el listado de ${this.countries.length} países</p>
       <ul>
-        ${this.countries.map( country => html`<li><b>${country.name}</b> - ${country.continent}</li>`)}
+        ${this.countries.map( country => html`
+          <li>${country.id}.- <b><a href="/countries/${country.id}">${country.name}</a></b> - ${country.continent}</li>
+        `)}
       </ul>  
     `
   }

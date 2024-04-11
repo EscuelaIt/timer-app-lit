@@ -1,4 +1,5 @@
 import '../css/style.css';
+import "urlpattern-polyfill";
 import './tm-app';
 import './components/tm-time-counter';
 import './components/utils/tm-ajax';
