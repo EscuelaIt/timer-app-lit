@@ -6,14 +6,19 @@ import './components/utils/tm-feedback';
 import './components/utils/tm-loading';
 import './components/user/tm-user-register';
 import { FeedbackMixin } from './mixins/feedback-mixin';
-import './components/countries/tm-countries';
 import { icons } from './icons/icons';
 import '@dile/ui/components/icon/icon';
 import { Router } from '@lit-labs/router';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import './components/tm-time-counter';
+import './components/utils/tm-ajax';
+import './components/utils/tm-ajax-form';
+import './components/interface/tm-icon';
 
 import './components/pages/tm-page-home';
 import './components/pages/tm-page-contact';
+import './components/pages/tm-page-404';
+// import './components/countries/tm-countries';
 // import './components/countries/tm-country-detail';
 
 export class TmApp extends FeedbackMixin(LitElement) {
@@ -72,6 +77,10 @@ export class TmApp extends FeedbackMixin(LitElement) {
   constructor() {
     super();
     this.createRoutes();
+    this.addEventListener('tm-navigate', (e) => {
+      this._routes.goto(e.detail.url);
+      history.pushState(null, 'App Timer', e.detail.url);
+    });
   }
 
   render() {
@@ -106,13 +115,24 @@ export class TmApp extends FeedbackMixin(LitElement) {
         }
       },
       {path: '/contacto', render: () => html`<tm-page-contact></tm-page-contact>`},
-      {path: '/countries', render: () => html`<tm-countries></tm-countries>`},
+      {
+        path: '/countries', 
+        render: () => html`<tm-countries></tm-countries>`,
+        enter: async () => {
+          await import('./components/countries/tm-countries');
+        },
+      },
       {
         path: '/countries/:id',
         render: ({id}) => html`<tm-country-detail countryId=${ifDefined(id)}></tm-country-detail>`,
         enter: async () => {
+          document.title = 'Detalle de país';
           await import('./components/countries/tm-country-detail');
         },
+      },
+      {
+        path: '/*',
+        render: () => html`<tm-page-404></tm-page-404>`,
       }
     ]);
   }

@@ -120,7 +120,7 @@ export class TmAjaxForm extends FeedbackMixin(LitElement) {
 
   doErrorGet(e) {
     this.negativeFeedback(e.detail.message);
-    this.dispatchEvent(new CustomEvent('get-error', { 
+    this.dispatchEvent(new CustomEvent('tm-ajax-form-get-error', { 
         bubbles: true,
         composed: true,
         detail: {

@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import './tm-countries-form';
 
 export class TmCountriesUpdate extends LitElement {
   static styles = [

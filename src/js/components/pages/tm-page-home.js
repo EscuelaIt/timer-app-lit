@@ -9,6 +9,11 @@ export class TmPageHome extends LitElement {
     `
   ];
 
+  constructor() {
+    super();
+    document.title = 'Home Timer App'  
+  }
+
   render() {
     return html`
       <h1>Timer app</h1>

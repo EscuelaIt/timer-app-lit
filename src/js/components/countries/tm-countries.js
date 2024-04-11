@@ -1,15 +1,21 @@
 import { LitElement, html, css } from 'lit';
 import { FeedbackMixin } from '../../mixins/feedback-mixin';
+import { NavigationMixin } from '../../mixins/navigation-mixin';
 import { infoIcon } from '@dile/icons';
 import './tm-countries-create';
-import './tm-countries-update';
+import '@dile/ui/components/card/card';
 
-export class TmCountries extends FeedbackMixin(LitElement) {
+import {isPositiveInteger} from '../../lib/validation/positive-integer';
+
+export class TmCountries extends NavigationMixin(FeedbackMixin(LitElement)) {
   static styles = [
     css`
       :host {
         display: block;
         --dile-icon-color: var(--primary-color);
+      }
+      dile-card {
+        margin-bottom: 1.5rem;
       }
     `
   ];
@@ -33,6 +39,11 @@ export class TmCountries extends FeedbackMixin(LitElement) {
 
   render() {
     return html`
+
+      <dile-card>
+        <dile-input id="countryId" label="Id país" hideErrorOnInput></dile-input>
+        <dile-button @click=${this.goToCountry}>Ir</dile-button>
+      </dile-card>
 
       <tm-countries-create
         @save-success="${this.refresh}"
@@ -83,6 +94,17 @@ export class TmCountries extends FeedbackMixin(LitElement) {
   refresh() {
     this.startLoading();
     this.ajaxget.generateRequest();
+  }
+
+  goToCountry() {
+    let input = this.shadowRoot.getElementById('countryId');
+    let value = input.value;
+    if(! isPositiveInteger(value)) {
+      input.errored = true;
+      input.message = "No es un id válido";
+    } else {
+      this.goToUrl('/countries/' + value);
+    }
   }
 }
 customElements.define('tm-countries', TmCountries);

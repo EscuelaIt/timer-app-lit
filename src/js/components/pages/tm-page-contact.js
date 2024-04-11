@@ -9,6 +9,11 @@ export class TmPageContact extends LitElement {
     `
   ];
 
+  constructor() {
+    super();
+    document.title = 'Contacta con nosotros'  
+  }
+
   render() {
     return html`
       <h1>Contacto</h1>
