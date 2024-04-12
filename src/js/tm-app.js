@@ -8,8 +8,7 @@ import './components/user/tm-user-register';
 import { FeedbackMixin } from './mixins/feedback-mixin';
 import { icons } from './icons/icons';
 import '@dile/ui/components/icon/icon';
-import { Router } from '@lit-labs/router';
-import { ifDefined } from 'lit/directives/if-defined.js';
+import { Routes, Router } from '@lit-labs/router';
 import './components/tm-time-counter';
 import './components/utils/tm-ajax';
 import './components/utils/tm-ajax-form';
@@ -108,7 +107,8 @@ export class TmApp extends FeedbackMixin(LitElement) {
   }
 
   createRoutes() {
-    this._routes = new Router(this, [
+    new Router(this, []);
+    this._routes = new Routes(this, [
       {path: '/', render: () => {
           console.log('vista home');
           return html`<tm-page-home></tm-page-home>`
@@ -116,18 +116,10 @@ export class TmApp extends FeedbackMixin(LitElement) {
       },
       {path: '/contacto', render: () => html`<tm-page-contact></tm-page-contact>`},
       {
-        path: '/countries', 
+        path: '/countries*', 
         render: () => html`<tm-countries></tm-countries>`,
         enter: async () => {
           await import('./components/countries/tm-countries');
-        },
-      },
-      {
-        path: '/countries/:id',
-        render: ({id}) => html`<tm-country-detail countryId=${ifDefined(id)}></tm-country-detail>`,
-        enter: async () => {
-          document.title = 'Detalle de país';
-          await import('./components/countries/tm-country-detail');
         },
       },
       {
