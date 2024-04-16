@@ -4,8 +4,9 @@ import '@dile/ui/components/menu-overlay/menu-overlay';
 import { userMenuButtonStyles } from './user-menu-button-styles';
 import { TokenMixin } from '../../mixins/token-mixin';
 import { FeedbackMixin } from '../../mixins/feedback-mixin';
+import { StateMixin } from '../../mixins/state-mixin';
 
-export class TmUser extends FeedbackMixin(TokenMixin(LitElement)) {
+export class TmUser extends StateMixin(FeedbackMixin(TokenMixin(LitElement))) {
   static styles = [
     userMenuButtonStyles,
     css`
@@ -85,12 +86,18 @@ export class TmUser extends FeedbackMixin(TokenMixin(LitElement)) {
   }
 
   saveUserData(e) {
+    this.setState({
+      loggedIn: true
+    });
     this.user = e.detail.data
   }
   
   logout(e) {
     e.preventDefault();
     this.removeToken();
+    this.setState({
+      loggedIn: false
+    });
     this.user = null;
     this.positiveFeedback('Logout realizado');
   }
