@@ -2,23 +2,21 @@ import { LitElement, html, css } from 'lit';
 import '@dile/ui/components/nav/nav';
 import '@dile/ui/components/button/button';
 import '@dile/ui/components/menu-hamburger/menu-hamburger';
-import './components/utils/tm-feedback';
-import './components/utils/tm-loading';
-import './components/user/tm-user-register';
-import { FeedbackMixin } from './mixins/feedback-mixin';
-import { icons } from './icons/icons';
+import './utils/tm-feedback';
+import './utils/tm-loading';
+import './user/tm-user-register';
+import { FeedbackMixin } from '../mixins/feedback-mixin';
+import { icons } from '../icons/icons';
 import '@dile/ui/components/icon/icon';
 import { Routes, Router } from '@lit-labs/router';
-import './components/tm-time-counter';
-import './components/utils/tm-ajax';
-import './components/utils/tm-ajax-form';
-import './components/interface/tm-icon';
-
-import './components/pages/tm-page-home';
-import './components/pages/tm-page-contact';
-import './components/pages/tm-page-404';
-// import './components/countries/tm-countries';
-// import './components/countries/tm-country-detail';
+import './tm-time-counter';
+import './utils/tm-ajax';
+import './utils/tm-ajax-form';
+import './interface/tm-icon';
+import './user/tm-user'
+import './pages/tm-page-home';
+import './pages/tm-page-contact';
+import './pages/tm-page-404';
 
 export class TmApp extends FeedbackMixin(LitElement) {
   static styles = [
@@ -97,6 +95,7 @@ export class TmApp extends FeedbackMixin(LitElement) {
             <p><a href="/contacto">Contacto</a></p>
           </div>
         </dile-menu-hamburger>
+        <tm-user slot="actions"></tm-user>
       </dile-nav>
       <main>
         ${this._routes.outlet()}
@@ -119,17 +118,34 @@ export class TmApp extends FeedbackMixin(LitElement) {
         path: '/countries*', 
         render: () => html`<tm-countries></tm-countries>`,
         enter: async () => {
-          await import('./components/countries/tm-countries');
+          await import('./countries/tm-countries');
+        },
+      },
+      {
+        path: '/login', 
+        render: () => html`<tm-user-login @new-token-issued=${this.saveToken}></tm-user-login>`,
+        enter: async () => {
+          await import('./user/tm-user-login');
+        },
+      },
+      {
+        path: '/registro', 
+        render: () => html`<tm-user-register @new-token-issued=${this.saveToken}></tm-user-register>`,
+        enter: async () => {
+          await import('./user/tm-user-register');
         },
       },
       {
         path: '/*',
         render: () => html`<tm-page-404></tm-page-404>`,
       }
+
     ]);
   }
 
-  
+  saveToken(e) {
+    this.shadowRoot.querySelector('tm-user').checkToken(e.detail.token)
+  }
   
 }
 customElements.define('tm-app', TmApp);

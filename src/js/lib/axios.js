@@ -1,9 +1,16 @@
 import Axios from 'axios';
 
-export const axios = Axios.create({
-  baseURL: 'https://timer.escuelait.com',
-  headers: {
+export const axiosCreator = (token = null) => {
+  // console.log('soy axios creator', token);
+  const headers = {
     'X-Requested-With': 'XMLHttpRequest',
-    'Accept': 'application/json'
-  },
-});
+    'Accept': 'application/json',
+  };
+  if(token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+  return Axios.create({
+    baseURL: 'https://timer.escuelait.com',
+    headers
+  });
+};

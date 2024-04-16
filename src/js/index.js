@@ -8,7 +8,7 @@ async function loadPolyfills() {
 
 async function main() {
   await loadPolyfills();
-  await import('./tm-app');
+  await import('./components/tm-app');
 }
 
 main();

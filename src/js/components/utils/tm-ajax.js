@@ -1,7 +1,8 @@
 import { LitElement, html, css } from 'lit';
-import { axios } from '../../lib/axios';
+import { axiosCreator } from '../../lib/axios';
+import { TokenMixin } from '../../mixins/token-mixin';
 
-export class TmAjax extends LitElement {
+export class TmAjax extends TokenMixin(LitElement) {
   
   static get properties() {
     return {
@@ -19,6 +20,7 @@ export class TmAjax extends LitElement {
   }
 
   generateRequest() {
+    let axios = axiosCreator(this.token);
     let request;
     switch(this.method.toLowerCase().trim()) {
       case 'get':

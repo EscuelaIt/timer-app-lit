@@ -99,17 +99,16 @@ export class TmAjaxForm extends FeedbackMixin(LitElement) {
   }
 
   doSuccessSave(e) {
-      let msg = e.detail.message;
+      let data = e.detail;
+      let msg = data.message;
       if(! msg) {
-          msg = 'Operación realizada con éxito';
+          data.message = 'Operación realizada con éxito';
       }
       this.positiveFeedback(msg);
       this.dispatchEvent(new CustomEvent('save-success', { 
           bubbles: true,
           composed: true,
-          detail: {
-              msg,
-          }
+          detail: data
       }));
   }
 
