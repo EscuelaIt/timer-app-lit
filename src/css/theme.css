@@ -19,6 +19,8 @@ html {
   --dile-app-drawer-background-color: var(--secondary-color);
   --dile-app-drawer-modal-background-color: rgba(20, 20, 20, 0.4);
 
+  --dile-modal-close-icon-color: var(--primary-color);
+  --dile-modal-close-icon-right: 10px;
 }
 
 

@@ -92,6 +92,7 @@ export class TmApp extends FeedbackMixin(LitElement) {
             <h2>Menu</h2>
             <p><a href="/">Home</a></p>
             <p><a href="/countries">Países</a></p>
+            <p><a href="/categorias">Categorías</a></p>
             <p><a href="/contacto">Contacto</a></p>
           </div>
         </dile-menu-hamburger>
@@ -133,6 +134,13 @@ export class TmApp extends FeedbackMixin(LitElement) {
         render: () => html`<tm-user-register @new-token-issued=${this.saveToken}></tm-user-register>`,
         enter: async () => {
           await import('./user/tm-user-register');
+        },
+      },
+      {
+        path: '/categorias', 
+        render: () => html`<tm-categories></tm-categories>`,
+        enter: async () => {
+          await import('./categories/tm-categories');
         },
       },
       {
