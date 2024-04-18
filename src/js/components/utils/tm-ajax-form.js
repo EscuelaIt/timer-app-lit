@@ -114,7 +114,7 @@ export class TmAjaxForm extends FeedbackMixin(LitElement) {
 
   loadData() {
     // console.log('loadData - relatedId: ', this.relatedId, ' - endpoint: ', this.endpoint, 'url: ', this.ajaxget.url);
-    this.ajaxget.generateRequest();
+    this.updateComplete.then( () => this.ajaxget.generateRequest() );
 }
 
   doErrorGet(e) {

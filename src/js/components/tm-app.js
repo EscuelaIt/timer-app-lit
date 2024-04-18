@@ -93,6 +93,8 @@ export class TmApp extends FeedbackMixin(LitElement) {
             <p><a href="/">Home</a></p>
             <p><a href="/countries">Países</a></p>
             <p><a href="/categorias">Categorías</a></p>
+            <p><a href="/clientes">Clientes</a></p>
+            <p><a href="/proyectos">Proyectos</a></p>
             <p><a href="/contacto">Contacto</a></p>
           </div>
         </dile-menu-hamburger>
@@ -141,6 +143,20 @@ export class TmApp extends FeedbackMixin(LitElement) {
         render: () => html`<tm-categories></tm-categories>`,
         enter: async () => {
           await import('./categories/tm-categories');
+        },
+      },
+      {
+        path: '/clientes', 
+        render: () => html`<tm-customers></tm-customers>`,
+        enter: async () => {
+          await import('./customers/tm-customers');
+        },
+      },
+      {
+        path: '/proyectos', 
+        render: () => html`<tm-projects></tm-projects>`,
+        enter: async () => {
+          await import('./projects/tm-projects');
         },
       },
       {
