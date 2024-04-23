@@ -68,9 +68,18 @@ export class TmCrudItem extends LitElement {
   get itemCustomTemplate() {
     return html`
       ${this.itemDistribution.map( section => html`
-        <span style="${section.css}">${this.item[section.name]}</span>
+        <span style="${section.css}">
+          ${section.href
+            ? html`<a href="${section.href(this.item)}">${this.itemContent(section, this.item)}</a>`
+            : this.itemContent(section, this.item)
+          }
+        </span>
       `)}
     `;
+  }
+
+  itemContent(section, item) {
+    return html`${item[section.name]}`;
   }
 
   emmitEditAction() {

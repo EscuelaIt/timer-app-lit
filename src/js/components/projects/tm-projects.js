@@ -18,6 +18,7 @@ export class TmProjects extends TmCrud {
       {
         name: "name",
         css: "flex-grow: 1; font-weight: bold;",
+        href: (item) => `/proyectos/${item.id}`
       }
     ];
   }

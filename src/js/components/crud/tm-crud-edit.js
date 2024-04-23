@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import '@dile/ui/components/modal/modal';
 
 export class TmCrudEdit extends LitElement {
   static styles = [
