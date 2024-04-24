@@ -38,6 +38,8 @@ export class TmUser extends StateMixin(FeedbackMixin(TokenMixin(LitElement))) {
     this.getUserAjax = this.shadowRoot.getElementById('getUserAjax');
     if(this.token) {
       this.checkToken(this.token);
+    } else {
+      this.saveUserLoggedOut();
     }
   }
 
@@ -48,6 +50,7 @@ export class TmUser extends StateMixin(FeedbackMixin(TokenMixin(LitElement))) {
       url="/api/auth/user"
       method="get"
       @ajax-success="${this.saveUserData}"
+      @ajax-error="${this.saveUserLoggedOut}"
     ></tm-ajax>
     ${this.user
       ? this.authenticatedTemplate
@@ -95,11 +98,16 @@ export class TmUser extends StateMixin(FeedbackMixin(TokenMixin(LitElement))) {
   logout(e) {
     e.preventDefault();
     this.removeToken();
+    this.saveUserLoggedOut();
+    this.user = null;
+    this.positiveFeedback('Logout realizado');
+  }
+
+  saveUserLoggedOut() {
+    console.log('saveUserLoggedOut');
     this.setState({
       loggedIn: false
     });
-    this.user = null;
-    this.positiveFeedback('Logout realizado');
   }
 }
 customElements.define('tm-user', TmUser);

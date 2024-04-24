@@ -3,6 +3,7 @@ import { TmCrud } from '../crud/tm-crud';
 import './tm-customers-insert';
 import './tm-customers-edit';
 import './tm-customer-form';
+import '../user/tm-user-validator';
 
 export class TmCustomers extends TmCrud {
   
@@ -20,6 +21,14 @@ export class TmCustomers extends TmCrud {
         css: "flex-grow: 1; font-weight: bold;",
       }
     ];
+  }
+
+  render() {
+    return html`
+      <tm-user-validator>
+        ${super.render()}
+      </tm-user-validator>
+    `
   }
 
   get insertTemplate() {

@@ -3,6 +3,7 @@ import { FeedbackMixin } from '../../mixins/feedback-mixin';
 import '@dile/ui/components/card/card';
 import './tm-projects-edit';
 import '@dile/ui/components/button/button';
+import '../user/tm-user-validator';
 
 export class TmProjectDetail extends FeedbackMixin(LitElement) {
   static styles = [
@@ -33,22 +34,24 @@ export class TmProjectDetail extends FeedbackMixin(LitElement) {
 
   render() {
     return html`
-      <tm-ajax
-        id="ajaxget"
-        method="get"
-        url="${this.endpoint}/${this.projectId}"
-        @ajax-success="${this.doSuccessGet}"
-        @ajax-error="${this.doErrorGet}"
-      ></tm-ajax>
-      ${this.project
-        ? this.projectDetailTemplate
-        : html`<p>Cargando...</p>`
-      }
-      <tm-projects-edit
-        id="eledit"
-        endpoint="${this.endpoint}"
-        @save-success="${this.saveSuccess}"
-      ></tm-projects-edit>
+      <tm-user-validator>
+        <tm-ajax
+          id="ajaxget"
+          method="get"
+          url="${this.endpoint}/${this.projectId}"
+          @ajax-success="${this.doSuccessGet}"
+          @ajax-error="${this.doErrorGet}"
+        ></tm-ajax>
+        ${this.project
+          ? this.projectDetailTemplate
+          : html`<p>Cargando...</p>`
+        }
+        <tm-projects-edit
+          id="eledit"
+          endpoint="${this.endpoint}"
+          @save-success="${this.saveSuccess}"
+        ></tm-projects-edit>
+      </tm-user-validator>
     `;
   }
 

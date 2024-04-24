@@ -5,6 +5,7 @@ import './tm-categories-edit';
 import './tm-categories-delete';
 import './tm-category-form';
 import './tm-categories-list';
+import '../user/tm-user-validator';
 
 export class TmCategories extends LitElement {
   static styles = [
@@ -37,31 +38,33 @@ export class TmCategories extends LitElement {
 
   render() {
     return html`
-      <h1>${this.title}</h1>
-      <p>
-        <dile-button @click=${this.openCreate}>Crear</dile-button>
-      </p>
-      <tm-categories-insert 
-        id="elinsert"
-        endpoint="${this.endpoint}"
-        @save-success=${this.insertSuccess}
-      ></tm-categories-insert>
-      <tm-categories-list
-        id="ellist"
-        endpoint="${this.endpoint}"
-        @edit-request=${this.openEdit}
-        @delete-request=${this.openDelete}
-      ></tm-categories-list>
-      <tm-categories-edit
-        id="eledit"
-        endpoint="${this.endpoint}"
-        @save-success=${this.editSuccess}
-      ></tm-categories-edit>
-      <tm-categories-delete
-        id="eldelete"
-        endpoint="${this.endpoint}"
-        @delete-success=${this.deleteSuccess}
-      ></tm-categories-delete>
+      <tm-user-validator>
+        <h1>${this.title}</h1>
+        <p>
+          <dile-button @click=${this.openCreate}>Crear</dile-button>
+        </p>
+        <tm-categories-insert 
+          id="elinsert"
+          endpoint="${this.endpoint}"
+          @save-success=${this.insertSuccess}
+        ></tm-categories-insert>
+        <tm-categories-list
+          id="ellist"
+          endpoint="${this.endpoint}"
+          @edit-request=${this.openEdit}
+          @delete-request=${this.openDelete}
+        ></tm-categories-list>
+        <tm-categories-edit
+          id="eledit"
+          endpoint="${this.endpoint}"
+          @save-success=${this.editSuccess}
+        ></tm-categories-edit>
+        <tm-categories-delete
+          id="eldelete"
+          endpoint="${this.endpoint}"
+          @delete-success=${this.deleteSuccess}
+        ></tm-categories-delete>
+      </tm-user-validator>
     `;
   }
 

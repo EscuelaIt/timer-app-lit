@@ -3,6 +3,7 @@ import { TmCrud } from '../crud/tm-crud';
 import './tm-projects-insert';
 import './tm-projects-edit';
 import './tm-project-form';
+import '../user/tm-user-validator';
 
 export class TmProjects extends TmCrud {
   
@@ -21,6 +22,14 @@ export class TmProjects extends TmCrud {
         href: (item) => `/proyectos/${item.id}`
       }
     ];
+  }
+
+  render() {
+    return html`
+      <tm-user-validator>
+        ${super.render()}
+      </tm-user-validator>
+    `
   }
 
   get insertTemplate() {
