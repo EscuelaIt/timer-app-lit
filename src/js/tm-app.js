@@ -15,10 +15,12 @@ import './components/utils/tm-ajax-form';
 import './components/interface/tm-icon';
 
 import './components/pages/tm-page-home';
-import './components/pages/tm-page-contact';
+
 import './components/pages/tm-page-404';
 // import './components/countries/tm-countries';
 // import './components/countries/tm-country-detail';
+
+import './components/interface/tm-navigation';
 
 export class TmApp extends FeedbackMixin(LitElement) {
   static styles = [
@@ -92,9 +94,7 @@ export class TmApp extends FeedbackMixin(LitElement) {
         <dile-menu-hamburger slot="menu" direction="left" hamburgerAlwaysVisible>
           <div class="menu-content" slot="menu">
             <h2>Menu</h2>
-            <p><a href="/">Home</a></p>
-            <p><a href="/countries">Países</a></p>
-            <p><a href="/contacto">Contacto</a></p>
+            <tm-navigation @tm-nav-navigation=${this.closeDrawer}></tm-navigation>
           </div>
         </dile-menu-hamburger>
       </dile-nav>
@@ -114,7 +114,13 @@ export class TmApp extends FeedbackMixin(LitElement) {
           return html`<tm-page-home></tm-page-home>`
         }
       },
-      {path: '/contacto', render: () => html`<tm-page-contact></tm-page-contact>`},
+      {
+        path: '/contacto', 
+        render: () => html`<tm-page-contact></tm-page-contact>`,
+        enter: async () => {
+          await import('./components/pages/tm-page-contact');
+        },
+      },
       {
         path: '/countries*', 
         render: () => html`<tm-countries></tm-countries>`,
@@ -129,7 +135,9 @@ export class TmApp extends FeedbackMixin(LitElement) {
     ]);
   }
 
-  
+  closeDrawer() {
+    this.shadowRoot.querySelector('dile-menu-hamburger').close();
+  }
   
 }
 customElements.define('tm-app', TmApp);

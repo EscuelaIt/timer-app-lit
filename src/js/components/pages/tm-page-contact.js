@@ -18,6 +18,14 @@ export class TmPageContact extends LitElement {
     return html`
       <h1>Contacto</h1>
       <p>Contacta con nosotros...</p>
+      <ul>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li>
+          <a href="/countries">Paises</a>
+        </li>
+      </ul>
     `;
   }
 }
