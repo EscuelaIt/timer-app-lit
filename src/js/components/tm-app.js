@@ -13,6 +13,7 @@ import './tm-time-counter';
 import './utils/tm-ajax';
 import './utils/tm-ajax-form';
 import './interface/tm-icon';
+import './interface/tm-navigation';
 import './user/tm-user'
 import './pages/tm-page-home';
 import './pages/tm-page-contact';
@@ -76,8 +77,9 @@ export class TmApp extends FeedbackMixin(LitElement) {
     super();
     this.createRoutes();
     this.addEventListener('tm-navigate', (e) => {
-      this._routes.goto(e.detail.url);
+      console.log('ruta...', e.detail.url);
       history.pushState(null, 'App Timer', e.detail.url);
+      setTimeout( () => this._routes.goto(e.detail.url), 100);
     });
   }
 
@@ -91,12 +93,9 @@ export class TmApp extends FeedbackMixin(LitElement) {
         <dile-menu-hamburger slot="menu" direction="left" hamburgerAlwaysVisible>
           <div class="menu-content" slot="menu">
             <h2>Menu</h2>
-            <p><a href="/">Home</a></p>
-            <p><a href="/countries">Países</a></p>
-            <p><a href="/categorias">Categorías</a></p>
-            <p><a href="/clientes">Clientes</a></p>
-            <p><a href="/proyectos">Proyectos</a></p>
-            <p><a href="/contacto">Contacto</a></p>
+            <tm-navigation @tm-nav-navigation=${this.closeDrawer}></tm-navigation>
+
+
           </div>
         </dile-menu-hamburger>
         <tm-user slot="actions"></tm-user>
@@ -177,6 +176,10 @@ export class TmApp extends FeedbackMixin(LitElement) {
 
   saveToken(e) {
     this.shadowRoot.querySelector('tm-user').checkToken(e.detail.token)
+  }
+
+  closeDrawer() {
+    this.shadowRoot.querySelector('dile-menu-hamburger').close();
   }
   
 }
