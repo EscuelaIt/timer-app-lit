@@ -68,6 +68,14 @@ export class TmCountries extends NavigationMixin(FeedbackMixin(LitElement)) {
         path: '/countries*',
         render: () => html`<tm-page-404></tm-page-404>`,
         enter: () => this.goToUrl('/404')
+      },
+      {
+        path: '*',
+        render: () => html`<tm-countries-list></tm-countries-list>`,
+        enter: async () => {
+          document.title = 'Listado de país para gestión del error';
+          await import('./tm-countries-list');
+        },
       }
     ]);
   }
