@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { FeedbackMixin } from '../../mixins/feedback-mixin';
 import { StateMixin } from '../../mixins/state-mixin';
+import '../utils/tm-time-counter';
 
 export class TmOpenedInterval extends StateMixin(FeedbackMixin(LitElement)) {
   static styles = [
@@ -66,11 +67,23 @@ export class TmOpenedInterval extends StateMixin(FeedbackMixin(LitElement)) {
         @ajax-success=${this.openedIntervalSuccess}
       ></tm-ajax>
       ${this.opened
-        ? html`<dile-button class="closebutton" @click=${this.closeInterval}>Cerrar intervalo</dile-button>`
+        ? this.openedIntervalTemplate
         : ''
       }
-      
     `;
+  }
+
+  get openedIntervalTemplate() {
+    return html`
+      <section>
+        <dile-button class="closebutton" @click=${this.closeInterval}>Cerrar intervalo</dile-button>
+        <tm-time-counter running seconds="${this.opendedInterval.seconds_opened}"></tm-time-counter>
+        ${this.opendedInterval.project
+          ? html`<a href="/proyectos/${this.opendedInterval.project.id}">${this.opendedInterval.project.name}</a>`
+          : ''
+        }
+      </section>
+    `
   }
 
   openedIntervalSuccess(e) {

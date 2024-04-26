@@ -7,7 +7,8 @@ export class TmTimeCounter extends LitElement {
       :host {
         display: inline-block;
         border: 1px solid #303030;
-        padding: 1rem;
+        padding: 0.2rem 1rem;
+        border-radius: 3rem;
       }
       span {
         color: red;
@@ -24,8 +25,14 @@ export class TmTimeCounter extends LitElement {
 
   constructor() {
     super();
-    this.seconds = 10;
+    this.seconds = 0;
     this.running = false;
+  }
+  
+  firstUpdated() {
+    if(this.running) {
+      setTimeout( () => this.start(), 1000)
+    }
   }
 
   render() {
@@ -33,18 +40,6 @@ export class TmTimeCounter extends LitElement {
       <span>
         <tm-seconds-to-time seconds="${this.seconds}"></tm-seconds-to-time>
       </span>  
-      <sl-button 
-        @click=${this.start}
-        variant="neutral"  
-        size="small"
-        pill
-      >Start</sl-button>
-      <sl-button 
-        @click=${this.stop}
-        variant="neutral"  
-        size="small"
-        pill
-      >Stop</sl-button>
     `;
   }
 

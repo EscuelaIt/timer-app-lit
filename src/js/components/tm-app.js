@@ -9,7 +9,6 @@ import { FeedbackMixin } from '../mixins/feedback-mixin';
 import { icons } from '../icons/icons';
 import '@dile/ui/components/icon/icon';
 import { Routes, Router } from '@lit-labs/router';
-import './tm-time-counter';
 import './utils/tm-ajax';
 import './utils/tm-ajax-form';
 import './interface/tm-icon';

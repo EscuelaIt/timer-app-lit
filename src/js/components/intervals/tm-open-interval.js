@@ -50,7 +50,7 @@ export class TmOpenInterval extends StateMixin(FeedbackMixin(LitElement)) {
   }
 
   computeData(projectId) {
-    return { roject_id: projectId };
+    return { project_id: projectId };
   }
 
   createInterval() {
