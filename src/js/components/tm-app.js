@@ -19,6 +19,8 @@ import './pages/tm-page-home';
 import './pages/tm-page-contact';
 import './pages/tm-page-404';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import './intervals/tm-opened-interval';
+
 
 export class TmApp extends FeedbackMixin(LitElement) {
   static styles = [
@@ -101,6 +103,7 @@ export class TmApp extends FeedbackMixin(LitElement) {
         <tm-user slot="actions"></tm-user>
       </dile-nav>
       <main>
+        <tm-opened-interval></tm-opened-interval>
         ${this._routes.outlet()}
       </main>
       <tm-feedback></tm-feedback>
@@ -161,7 +164,7 @@ export class TmApp extends FeedbackMixin(LitElement) {
       },
       {
         path: '/proyectos/:id', 
-        render: ({id}) => html`<tm-project-detail projectId="${ifDefined(id)}"></tm-project-detail>`,
+        render: ({id}) => html`<tm-project-detail @interval-opened=${this.intervalOpened} projectId="${ifDefined(id)}"></tm-project-detail>`,
         enter: async () => {
           await import('./projects/tm-project-detail');
         },
@@ -182,5 +185,8 @@ export class TmApp extends FeedbackMixin(LitElement) {
     this.shadowRoot.querySelector('dile-menu-hamburger').close();
   }
   
+  intervalOpened() {
+    this.shadowRoot.querySelector('tm-opened-interval').refresh();
+  } 
 }
 customElements.define('tm-app', TmApp);

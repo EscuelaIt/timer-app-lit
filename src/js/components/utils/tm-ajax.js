@@ -91,7 +91,10 @@ export class TmAjax extends TokenMixin(LitElement) {
           errors = error.response.data.errors;
           break;
         case 403:
-          message = 'Operación no autorizada';
+          message = error.response.data?.message
+          if(!message) {
+            message = 'Operación no autorizada';
+          }
           break;
         default: 
         message = 'Error en la solicitud';

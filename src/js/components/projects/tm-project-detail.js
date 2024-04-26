@@ -4,6 +4,7 @@ import '@dile/ui/components/card/card';
 import './tm-projects-edit';
 import '@dile/ui/components/button/button';
 import '../user/tm-user-validator';
+import '../intervals/tm-open-interval';
 
 export class TmProjectDetail extends FeedbackMixin(LitElement) {
   static styles = [
@@ -63,6 +64,9 @@ export class TmProjectDetail extends FeedbackMixin(LitElement) {
         </p>
         <div slot="footer">
           <dile-button @click="${this.openEdit}">Editar</dile-button>
+          <tm-open-interval
+            projectId="${this.projectId}"
+          ></tm-open-interval>
         </div>
       </dile-card>
     `

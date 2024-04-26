@@ -24,8 +24,7 @@ export const StateMixin = (Superclass) => class extends Superclass {
   }
 
   setState(newState) {
-    console.log(this.getState(), newState);
-    state.setState(newState);
+    state.setState(old => ({...old, ...newState}));
   }
 
   getState() {
