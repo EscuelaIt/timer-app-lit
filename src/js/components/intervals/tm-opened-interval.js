@@ -66,7 +66,7 @@ export class TmOpenedInterval extends StateMixin(FeedbackMixin(LitElement)) {
         method="get"
         @ajax-success=${this.openedIntervalSuccess}
       ></tm-ajax>
-      ${this.opened
+      ${this.opened && this.loggedIn
         ? this.openedIntervalTemplate
         : ''
       }

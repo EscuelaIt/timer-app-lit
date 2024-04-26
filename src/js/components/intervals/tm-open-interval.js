@@ -20,6 +20,7 @@ export class TmOpenInterval extends StateMixin(FeedbackMixin(LitElement)) {
 
   firstUpdated() {
     this.intervalCreationAjax = this.shadowRoot.getElementById('intervalCreationAjax');
+    this.stateChanged(this.getState());
   }
 
   stateChanged(state) {
