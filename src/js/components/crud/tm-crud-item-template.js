@@ -15,7 +15,7 @@ export class TmCrudItemTemplate extends LitElement {
     section, section .content, .content span {
       white-space: nowrap;
       text-overflow: ellipsis;
-      overflow: hidden;
+     
     }
     section, section .content {
       display: flex;
@@ -51,6 +51,8 @@ export class TmCrudItemTemplate extends LitElement {
       item: { type: Object },
       itemDistribution: { type: Array },
       moreActionsTemplate: { type: Object },
+      disableEdit: { type: Boolean },
+      disableDelete: { type: Boolean },
     };
   }
 
@@ -64,8 +66,14 @@ export class TmCrudItemTemplate extends LitElement {
           ? this.moreActionsTemplate(this.item)
           : ''
         }
-        <dile-icon .icon="${editIcon}" rounded @click=${this.emmitEditAction}></dile-icon>
-        <dile-icon class="danger" .icon="${deleteIcon}" rounded @click=${this.emmitDeleteAction}></dile-icon>
+         ${this.disableEdit
+          ? ''
+          : html`<dile-icon .icon="${editIcon}" rounded @click=${this.emmitEditAction}></dile-icon>`
+        }
+        ${this.disableDelete
+          ? ''
+          : html`<dile-icon class="danger" .icon="${deleteIcon}" rounded @click=${this.emmitDeleteAction}></dile-icon>`
+        }
       </section>
     `;
   }

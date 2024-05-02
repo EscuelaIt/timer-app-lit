@@ -17,12 +17,16 @@ export class TmCrudListItemTemplate extends LitElement {
       itemDistribution: { type: Array },
       moreActionsTemplate: { type: Object },
       itemTemplate: { type: Object },
+      filters: { type: Object },
+      disableEdit: { type: Boolean },
+      disableDelete: { type: Boolean },
     };
   }
 
   constructor() {
     super();
     this.items = [];
+    this.filters = {};
   }
 
   firstUpdated() {
@@ -35,10 +39,17 @@ export class TmCrudListItemTemplate extends LitElement {
       <tm-ajax
         id="ajaxget"
         method="get"
+        .data=${this.filters}
         url="${this.endpoint}"
         @ajax-success=${this.getSuccess}
       ></tm-ajax>
-      ${this.items.map( item => html`<tm-crud-item-template .moreActionsTemplate=${this.moreActionsTemplate} .itemTemplate=${this.itemTemplate} .item=${item}></tm-crud-item-template>`)}
+      ${this.items.map( item => html`
+        <tm-crud-item-template 
+          .moreActionsTemplate=${this.moreActionsTemplate} 
+          .itemTemplate=${this.itemTemplate} .item=${item}
+          ?disableEdit=${this.disableEdit}
+          ?disableDelete=${this.disableDelete}
+        ></tm-crud-item-template>`)}
     `;
   }
 

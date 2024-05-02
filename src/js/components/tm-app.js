@@ -19,7 +19,7 @@ import './pages/tm-page-contact';
 import './pages/tm-page-404';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import './intervals/tm-opened-interval';
-
+import './categories/categories-to-state';
 
 export class TmApp extends FeedbackMixin(LitElement) {
   static styles = [
@@ -107,6 +107,7 @@ export class TmApp extends FeedbackMixin(LitElement) {
       </main>
       <tm-feedback></tm-feedback>
       <tm-loading></tm-loading>
+      <categories-to-state></categories-to-state>
     `;
   }
 

@@ -7,8 +7,10 @@ import '../user/tm-user-validator';
 import '../intervals/tm-open-interval';
 import '../crud/tm-crud-list-item-template';
 import '../intervals/tm-interval-item';
+import { StateMixin } from '../../mixins/state-mixin';
+import '../categories/categories-menu';
 
-export class TmProjectDetail extends FeedbackMixin(LitElement) {
+export class TmProjectDetail extends StateMixin(FeedbackMixin(LitElement)) {
   static styles = [
     css`
       :host {
@@ -26,7 +28,7 @@ export class TmProjectDetail extends FeedbackMixin(LitElement) {
       project: { type: Object },
       endpoint: { type: String },
       itemDistribution: { type: Object },
-      
+      filters: { type: Object },
     };
   }
 
@@ -46,6 +48,7 @@ export class TmProjectDetail extends FeedbackMixin(LitElement) {
         name: 'seconds_opened'
       }
     ];
+    this.filters = {};
   }
 
   firstUpdated() {
@@ -53,9 +56,35 @@ export class TmProjectDetail extends FeedbackMixin(LitElement) {
     this.refresh();
   }
 
+  updated(changedProperties) {
+    if(changedProperties.has('projectId')) {
+      if(this.projectId) {
+        console.log('actualizar el objeto del filtro');
+        this.filters = {
+          project_id: this.projectId
+        };
+      }
+    }
+  }
+
+  get ellist() {
+    return this.shadowRoot.getElementById('ellist');
+  }
+
+  stateChanged(state) {
+    if(this.ellist && this.openedInterval !== state.openedInterval) {
+      this.ellist.refresh();
+    }
+    this.openedInterval = state.openedInterval
+  }
+
   render() {
     return html`
       <tm-user-validator>
+        <tm-ajax
+          id="categoryIntervalAjax"
+          method="post"
+        ></tm-ajax>
         <tm-ajax
           id="ajaxget"
           method="get"
@@ -86,15 +115,26 @@ export class TmProjectDetail extends FeedbackMixin(LitElement) {
           <dile-button @click="${this.openEdit}">Editar</dile-button>
           <tm-open-interval
             projectId="${this.projectId}"
+            @interval-opened=${this.refreshIntervalList}
           ></tm-open-interval>
         </div>
       </dile-card>
 
       <tm-crud-list-item-template
+        disableDelete
+        disableEdit
+        @category-changed=${this.categoryChanged} 
+        @delete-request=${this.doDelete}
         id="ellist"
+        .filters=${this.filters}
         endpoint="/api/intervals"
         .itemTemplate=${(item) => html`<tm-interval-item .item=${item}></tm-interval-item>`}
-        .moreActionsTemplate=${(item) => html`<dile-button @click="${this.clickAddCategory(item.id)}">Añadir categoría</dile-button>`}
+        .moreActionsTemplate=${(item) => html`
+          <categories-menu 
+            
+            intervalId="${item.id}" 
+            .item="${item}"
+          ></categories-menu>`}
       ></tm-crud-list-item-template>
     `
   }
@@ -124,6 +164,26 @@ export class TmProjectDetail extends FeedbackMixin(LitElement) {
     return (e) => {
       console.log('quieres añadir una categoría en ', id);
     }
+  }
+
+  refreshIntervalList() {
+    this.ellist.refresh();
+  }
+
+  categoryChanged(e) {
+    console.log('checked change', e.detail, this);
+
+    let categoryIntervalAjax = this.shadowRoot.getElementById('categoryIntervalAjax');
+    categoryIntervalAjax.url = `/api/intervals/${e.detail.intervalId}/attach-category`;
+    categoryIntervalAjax.data = {
+      "category_id": e.detail.categoryId,
+      "attached": e.detail.checked
+    }
+    categoryIntervalAjax.generateRequest();
+  }
+
+  doDelete(e) {
+    console.log('do delete', e.detail);
   }
 }
 customElements.define('tm-project-detail', TmProjectDetail);
