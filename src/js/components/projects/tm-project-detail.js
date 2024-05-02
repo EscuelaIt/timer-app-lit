@@ -5,12 +5,17 @@ import './tm-projects-edit';
 import '@dile/ui/components/button/button';
 import '../user/tm-user-validator';
 import '../intervals/tm-open-interval';
+import '../crud/tm-crud-list-item-template';
+import '../intervals/tm-interval-item';
 
 export class TmProjectDetail extends FeedbackMixin(LitElement) {
   static styles = [
     css`
       :host {
         display: block;
+      }
+      dile-card {
+        margin-bottom: 1rem;
       }
     `
   ];
@@ -20,12 +25,27 @@ export class TmProjectDetail extends FeedbackMixin(LitElement) {
       projectId: { type: String },
       project: { type: Object },
       endpoint: { type: String },
+      itemDistribution: { type: Object },
+      
     };
   }
 
   constructor() {
     super();
     this.endpoint = '/api/projects';
+    this.itemDistribution = [
+      {
+        name: 'id',
+        css: 'width: 100px; min-width: 100px; text-align: center;',
+      },
+      {
+        name: 'start_time'
+      }
+      ,
+      {
+        name: 'seconds_opened'
+      }
+    ];
   }
 
   firstUpdated() {
@@ -69,6 +89,13 @@ export class TmProjectDetail extends FeedbackMixin(LitElement) {
           ></tm-open-interval>
         </div>
       </dile-card>
+
+      <tm-crud-list-item-template
+        id="ellist"
+        endpoint="/api/intervals"
+        .itemTemplate=${(item) => html`<tm-interval-item .item=${item}></tm-interval-item>`}
+        .moreActionsTemplate=${(item) => html`<dile-button @click="${this.clickAddCategory(item.id)}">Añadir categoría</dile-button>`}
+      ></tm-crud-list-item-template>
     `
   }
 
@@ -91,6 +118,12 @@ export class TmProjectDetail extends FeedbackMixin(LitElement) {
   saveSuccess(e) {
     console.log(e.detail);
     this.project = e.detail.data;
+  }
+
+  clickAddCategory(id) {
+    return (e) => {
+      console.log('quieres añadir una categoría en ', id);
+    }
   }
 }
 customElements.define('tm-project-detail', TmProjectDetail);

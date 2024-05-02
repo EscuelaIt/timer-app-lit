@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'lit';
-import './tm-crud-item';
+import './tm-crud-item-template';
 
-export class TmCrudList extends LitElement {
+export class TmCrudListItemTemplate extends LitElement {
   static styles = [
     css`
       :host {
@@ -16,6 +16,7 @@ export class TmCrudList extends LitElement {
       items: { type: Array },
       itemDistribution: { type: Array },
       moreActionsTemplate: { type: Object },
+      itemTemplate: { type: Object },
     };
   }
 
@@ -37,7 +38,7 @@ export class TmCrudList extends LitElement {
         url="${this.endpoint}"
         @ajax-success=${this.getSuccess}
       ></tm-ajax>
-      ${this.items.map( item => html`<tm-crud-item .moreActionsTemplate=${this.moreActionsTemplate} .itemDistribution=${this.itemDistribution} .item=${item}></tm-crud-item>`)}
+      ${this.items.map( item => html`<tm-crud-item-template .moreActionsTemplate=${this.moreActionsTemplate} .itemTemplate=${this.itemTemplate} .item=${item}></tm-crud-item-template>`)}
     `;
   }
 
@@ -49,4 +50,4 @@ export class TmCrudList extends LitElement {
     this.ajaxget.generateRequest();
   }
 }
-customElements.define('tm-crud-list', TmCrudList);
+customElements.define('tm-crud-list-item-template', TmCrudListItemTemplate);

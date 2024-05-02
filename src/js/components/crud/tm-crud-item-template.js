@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit';
 import { editIcon, deleteIcon } from '@dile/icons';
 import '@dile/ui/components/icon/icon';
 
-export class TmCrudItem extends LitElement {
+export class TmCrudItemTemplate extends LitElement {
   static styles = [
     css`
     :host {
@@ -58,7 +58,7 @@ export class TmCrudItem extends LitElement {
     return html`
       <section>
         <div class="content">
-          ${this.itemCustomTemplate}
+          ${this.itemTemplate(this.item)}
         </div>
         ${this.moreActionsTemplate
           ? this.moreActionsTemplate(this.item)
@@ -104,4 +104,4 @@ export class TmCrudItem extends LitElement {
   }
 
 }
-customElements.define('tm-crud-item', TmCrudItem);
+customElements.define('tm-crud-item-template', TmCrudItemTemplate);
