@@ -6,6 +6,7 @@ export class TmCrudItemTemplate extends LitElement {
   static styles = [
     css`
     :host {
+      
       display: block;
       --dile-icon-size: 22px;
       --dile-icon-color: var(--secondary-light-color);
